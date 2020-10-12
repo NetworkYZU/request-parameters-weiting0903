@@ -7,6 +7,7 @@ package lendle.courses.network.requestparameterservlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,7 +42,17 @@ public class ProcessServlet extends HttpServlet {
             out.println("<title>Servlet ProcessServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println(request.getParameter("username"));
+            Enumeration<String> names=request.getParameterNames();
+            while(names.hasMoreElements()){
+                String name=names.nextElement();
+                out.print(name+"=");
+                out.print(request.getParameter(name)+"<br/>");
+               // http://localhost:8080/RequestParameterServlet/process?username=weiting
+            }
+            String [] group1Values=request.getParameterValues("group2");
+            for(int i=0;i<group1Values.length;i++){
+                    out.println(""+i+"="+group1Values[i]+"<br/>");
+                            }
             out.println("</body>");
             out.println("</html>");
         } finally {
